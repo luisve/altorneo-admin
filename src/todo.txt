@@ -1,0 +1,9 @@
+- faltan las galerías de equipos, jugadores
+
+
+- Cuando carga un dato de partido no muestra mensaje, solo el alert en verde
+
+
+
+IdCliente de Google
+667733343221-plhuqbj38ljugod9df5qukun9m4lrh84.apps.googleusercontent.com
