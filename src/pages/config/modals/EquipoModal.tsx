@@ -3,23 +3,27 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 
+import { Loading } from '../../../components/Loading';
+
+
 import { URLROOT, URL_IMAGES } from '../../../utils/constants';
+
 import { SelectType } from '../../../types/SelectType';
 import { DefaultEquipoType, EquipoType } from '../../../types/config/EquipoType';
-import { getEquipoService, postEquipoService } from '../../../services/config/EquipoService';
-import { Loading } from '../../../components/Loading';
-import { getCuerpoTecnicoListService, postSwitchCTService } from '../../../services/config/CuerpoTecnicoService';
 import { CuerpoTecnicoView } from '../../../views/config/CuerpoTecnicoView';
 
 
-// import { TecnicoModal } from './CuerpoTecnicoModal';
-// import { useBootstrapModal } from '../../../hooks/useBootstrapModal';
+import { getEquipoService, postEquipoService } from '../../../services/config/EquipoService';
+
+
+import { getCuerpoTecnicoListService, postSwitchCTService } from '../../../services/config/CuerpoTecnicoService';
 
 
 type ModalProps = {
 	id: number | null;
 	listaCategorias: SelectType[] | null;
 	fetchEquipos: () => Promise<void>;
+	idCategoria: number
 	close: () => void;
 	isOpen: boolean;
 	modalRef: React.RefObject<HTMLDivElement>;
@@ -30,6 +34,7 @@ export const EquipoModal = ({
 	id,
 	listaCategorias,
 	fetchEquipos,
+	idCategoria,
 	close,
 	isOpen,
 	modalRef }: ModalProps) => {
@@ -37,7 +42,7 @@ export const EquipoModal = ({
 
 	const navigate = useNavigate();
 	const [contadorLoading, setContadorLoading] = useState(0);
-	//	const modalTecnico = useBootstrapModal();
+
 
 	const [srcImagenPerfil, setSrcImagenPerfil] = useState<string>(URL_IMAGES + 'svg/equipo.svg');
 	const [srcImagenEscudo, setSrcImagenEscudo] = useState<string>(URL_IMAGES + 'svg/escudo.svg');
@@ -52,14 +57,6 @@ export const EquipoModal = ({
 
 
 	useEffect(() => {
-		setForm(DefaultEquipoType);
-		setImgPerfilArchivo(null);
-		setImgEscudoArchivo(null);
-		if (listaCategorias) {
-			setForm(prev => ({ ...prev, 'IdCategoria': listaCategorias[0].Id }));
-		}
-		setSrcImagenPerfil(URL_IMAGES + 'svg/equipo.svg');
-		setSrcImagenEscudo(URL_IMAGES + 'svg/escudo.svg');
 		const fetchEquipo = async (id: number) => {
 			setContadorLoading(1);
 			getEquipoService(id)
@@ -81,6 +78,11 @@ export const EquipoModal = ({
 		setCTLista(null);
 		if (isOpen) {
 			setForm(DefaultEquipoType);
+			setImgPerfilArchivo(null);
+			setImgEscudoArchivo(null);
+			if (listaCategorias) { setForm(prev => ({ ...prev, 'IdCategoria': idCategoria })); }
+			setSrcImagenPerfil(URL_IMAGES + 'svg/equipo.svg');
+			setSrcImagenEscudo(URL_IMAGES + 'svg/escudo.svg');
 			if (id) {
 				fetchEquipo(id);
 				fetchCuerpoTecnico(id);

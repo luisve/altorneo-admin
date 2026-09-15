@@ -187,6 +187,7 @@ export const Equipos = () => {
 				id={id}
 				fetchEquipos={fetchEquipos}
 				listaCategorias={listaCategorias}
+				idCategoria={idCategoria}
 				close={modalDatos.close}
 				isOpen={modalDatos.isOpen}
 				modalRef={modalDatos.ref}
