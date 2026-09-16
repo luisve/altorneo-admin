@@ -62,15 +62,17 @@ export const TorneoAltaModal = ({
 			return;
 		}
 		setContadorLoading(1);
-		const data = await postTorneoAltaService(form);
-		setContadorLoading(-1);
-		if (data.code === 200) {
-			toast.success(data.msg);
-			fetchTorneos();
-			close();
-		} else {
-			toast.error(data.msg, { autoClose: 3000, });
-		}
+		postTorneoAltaService(form)
+			.then((data) => {
+				if (data.code === 200) {
+					toast.success(data.msg);
+					fetchTorneos();
+					close();
+				} else {
+					toast.error(data.msg, { autoClose: 3000, });
+				}
+			})
+			.finally(() => { setContadorLoading(-1); });
 	};
 
 
