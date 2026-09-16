@@ -8,7 +8,6 @@ import { Breadcrumb } from '../../components/Breadcrumb';
 import { Tabla } from '../../components/Tabla';
 
 
-//import { DefaultEquipoType, EquipoType } from '../../types/config/EquipoType';
 import { SelectType } from '../../types/SelectType';
 import { DefaultEquipoView, EquipoView } from '../../views/config/EquipoView';
 
@@ -114,15 +113,17 @@ export const TorneoEquipos = () => {
 	const recargarEquipos = async () => {
 		/** Se arma el json para subir */
 		const jsonData = {
-			Id: idTorneo
+			idTorneo: idTorneo
 		};
 		setLoadingTorneoEquipos(prev => prev + 1);
-		const ret = await postTorneoRecargarEquipoService(jsonData);
-		setLoadingTorneoEquipos(prev => prev - 1);
-		if (ret.code === 200) {
-			fetchEquiposXTorneo();
-			toast.success(ret.msg, { autoClose: 1000 });
-		}
+		postTorneoRecargarEquipoService(jsonData)
+			.then((ret) => {
+				if (ret.code === 200) {
+					fetchEquiposXTorneo();
+					toast.success(ret.msg, { autoClose: 1000 });
+				}
+			})
+			.finally(() => { setLoadingTorneoEquipos(prev => prev - 1) })
 	}
 
 
@@ -259,14 +260,14 @@ export const TorneoEquipos = () => {
 					</div>
 				</div>
 			</section>
-				<TorneoJugadoresModal
-					idEquipo={idEquipo}
-					idTorneo={idTorneo}
-					equipo={equipo}
-					isOpen={modalDatos.isOpen}
-					close={modalDatos.close}
-					modalRef={modalDatos.ref}
-				/>
+			<TorneoJugadoresModal
+				idEquipo={idEquipo}
+				idTorneo={idTorneo}
+				equipo={equipo}
+				isOpen={modalDatos.isOpen}
+				close={modalDatos.close}
+				modalRef={modalDatos.ref}
+			/>
 		</>
 	)
 }
