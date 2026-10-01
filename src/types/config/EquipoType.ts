@@ -30,7 +30,7 @@ export const DefaultEquipoType = (): EquipoType => ({
 	Instagram: "",
 	Observaciones: "",
 	NombreImagenPerfil: "",
-	Habilitado: -1,
+	Habilitado: 1,
 	ImagenPerfil: "",
 	Saldo: 0,
 });

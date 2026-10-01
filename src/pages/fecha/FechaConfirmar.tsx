@@ -20,9 +20,14 @@ import { getListaFechaService } from '../../services/fecha/FechaService';
 import { getEquiposXTorneoService } from '../../services/torneo/TorneoEquipoService';
 import { getPartidoListaService, postPartidoDatosService } from '../../services/partido/PartidoService';
 import { EquipoView } from '../../views/config/EquipoView';
+import { useBootstrapModal } from '../../hooks/useBootstrapModal';
+import FechaConfirmarAutoModal from './modals/FechaConfirmarAutoModal';
 
 
 export const FechaConfirmar = () => {
+
+
+	const modalDatos = useBootstrapModal();
 
 
 	const [contadorLoading, setContadorLoading] = useState<number>(0);
@@ -82,26 +87,28 @@ export const FechaConfirmar = () => {
 	}, [zona, listaPartidos])
 
 
-	useEffect(() => {
-		const fetchListaPartido = async (idFecha: number) => {
-			const partidoLista = await getPartidoListaService(idFecha);
-			setListaPartidos(partidoLista);
-			// se obtiene un array de zonas únicas
-			// Extraemos y filtramos zonas únicas
-			const resultado = partidoLista
-				.map(item => item.Zona)
-				.filter((zona, index, self) => self.indexOf(zona) === index)
-				.map(zona => ({ Zona: zona }));
-			setListaZonas(resultado);
-			setZona(partidoLista[0].Zona);
-		}
+	const fetchListaPartido = (idFecha: number) => {
+		getPartidoListaService(idFecha)
+			.then((partidoLista) => {
+				setListaPartidos(partidoLista);
+				// se obtiene un array de zonas únicas
+				// Extraer y filtrar zonas únicas
+				// Para mas adelante
+				const resultado = partidoLista
+					.map(item => item.Zona)
+					.filter((zona, index, self) => self.indexOf(zona) === index)
+					.map(zona => ({ Zona: zona }));
+				setListaZonas(resultado);
+				setZona(partidoLista[0].Zona);
+			});
+	}
 
+
+	useEffect(() => {
 		setListaPartidos(null);
 		setListaPartidosRender(null);
 		setListaZonas(null);
 		setZona("");
-
-		//if ((fechaNumero > 0) && (idTorneo > 0)) {
 		if (idFecha) {
 			fetchListaPartido(idFecha);
 		}
@@ -118,8 +125,8 @@ export const FechaConfirmar = () => {
 						setIdFecha(fechaList[0].FechaZona[0].IdFecha);
 					}
 					setListaEquipos(equipoList);
-					setContadorLoading(-1);
-				});
+				})
+				.finally(() => { setContadorLoading(-1); });
 		}
 
 		if (idTorneo > 0) {
@@ -168,6 +175,11 @@ export const FechaConfirmar = () => {
 			actualizarDatosLocal();
 		}
 		setContadorLoading(-1);
+	};
+
+
+	const handleOpenAuto = () => {
+		modalDatos.open();
 	};
 
 
@@ -292,7 +304,6 @@ export const FechaConfirmar = () => {
 										</div>
 										{
 											listaPartidosRender !== null ?
-
 												<div className="col my-3">
 													<span style={{ color: '#000' }}>
 														<h5 className='fw-bold'>
@@ -492,13 +503,18 @@ export const FechaConfirmar = () => {
 																</div>
 															</div>
 														</div>
-													</div>
-													<div className="modal-footer">
-														<button
-															type="button"
-															className="btn btn-primary btn-sm float-end"
-															onClick={onClicPost}
-															aria-label="Cerrar">Confirmar</button>
+														<div className="card-footer">
+															<button
+																type="button"
+																className="btn btn-primary btn-sm"
+																onClick={handleOpenAuto}
+																aria-label="Cerrar">Automático</button>
+															<button
+																type="button"
+																className="btn btn-primary btn-sm float-end"
+																onClick={onClicPost}
+																aria-label="Cerrar">Confirmar</button>
+														</div>
 													</div>
 												</div>
 												:
@@ -533,6 +549,16 @@ export const FechaConfirmar = () => {
 					</div>
 				</div>
 				<Loading contador={contadorLoading} />
+				<FechaConfirmarAutoModal
+					idFecha={idFecha ?? 0}
+					idTorneo={idTorneo}
+					listaPartidos={listaPartidos ?? []}
+					listaEquipos={listaEquipos}
+					fetchListaPartidos={fetchListaPartido}
+					isOpen={modalDatos.isOpen}
+					close={modalDatos.close}
+					modalRef={modalDatos.ref}
+				/>
 			</section>
 		</>
 	)

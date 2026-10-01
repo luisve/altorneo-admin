@@ -133,13 +133,15 @@ export const EquipoModal = ({
 			formData.append(key, value);
 		});
 		setContadorLoading(1);
-		const resp = await postEquipoService(formData);
-		setContadorLoading(-1);
-		if (resp.code === 200) {
-			toast.success(resp.msg, { autoClose: 1000, });
-			fetchEquipos();
-			close();
-		}
+		postEquipoService(formData)
+			.then((resp) => {
+				if (resp.code === 200) {
+					toast.success(resp.msg, { autoClose: 1000, });
+					fetchEquipos();
+					close();
+				}
+			})
+			.finally(() => { setContadorLoading(-1); })
 	};
 
 

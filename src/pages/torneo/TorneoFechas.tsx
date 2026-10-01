@@ -68,7 +68,7 @@ export const TorneoFechas = () => {
 								// se imprime el primer renglon, fecha y equipo libre
 								if (listaEquiposHabilitados !== null) {
 									let sLibreNombre = listaEquiposHabilitados.find(e => e.Id === fecha.IdEquipoLibre)?.Nombre || '';
-									fechasTemp.push({ FechaNumero: fecha.FechaNumero, Partido: null, Local: "", Visitante: "", Libre: sLibreNombre, ImagenLocal: "", ImagenVisitante: "" });
+									fechasTemp.push({ FechaNumero: fecha.FechaNumero, Partido: null, Local: "", Visitante: "", Libre: sLibreNombre, ImagenLocal: '', ImagenVisitante: "" });
 								}
 							} else {
 								fechasTemp.push({ FechaNumero: fecha.FechaNumero, Partido: null, Local: "", Visitante: "", Libre: "", ImagenLocal: "", ImagenVisitante: "" });

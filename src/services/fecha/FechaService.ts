@@ -1,6 +1,14 @@
 import { apiGET } from '../../utils/httpClient';
 import { FechaType } from '../../types/fecha/FechaType';
 import { FechasJugadoresInhabilitadosType } from '../../types/fecha/fechasJugadoresInhabilitadosType';
+import { FechaParticipanteType } from '../../types/fecha/FechaParticipanteType';
+
+
+// Obtener los participantes y el rango horario ocupado
+export const getParticipantesFechaService = async (idTorneo: number, idFecha: number, fecha: string): Promise<{asignados:FechaParticipanteType[], libres:FechaParticipanteType[]}> => {
+	const participanteList = await apiGET<{asignados:FechaParticipanteType[], libres:FechaParticipanteType[]}>('fecha/partidos/getParticipantes?idTorneo=' + idTorneo + '&dia=' + fecha + '&idFecha=' + idFecha);
+	return participanteList;
+};
 
 
 // Obtener la lista de fechas

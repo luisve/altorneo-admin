@@ -46,7 +46,7 @@ export const Menu = () => {
 						<ul className="navbar-nav">
 							<li className="nav-item"><Link className="nav-link" to="/home">Home</Link></li>
 							<li className="nav-item dropdown">
-								<Link className="nav-link dropdown-toggle" role="button" data-bs-display="static" aria-expanded="false" to="/fechaConfirmar">Fecha</Link>
+								<Link className="nav-link dropdown-toggle" data-bs-display="static" aria-expanded="false" to="/fechaConfirmar">Fecha</Link>
 								<ul className="dropdown-menu">
 									<li><Link to="/fechaSanciones" className="menu-link" >Sanciones</Link></li>
 									<li><Link to="/fechaEventos" className="menu-link" >Eventos</Link></li>
@@ -55,7 +55,7 @@ export const Menu = () => {
 								</ul>
 							</li>
 							<li className="nav-item dropdown">
-								<Link className="nav-link dropdown-toggle" role="button" data-bs-display="static" aria-expanded="false" to="/torneoIniciar">Torneo</Link>
+								<Link className="nav-link dropdown-toggle" data-bs-display="static" aria-expanded="false" to="/torneoIniciar">Torneo</Link>
 								<ul className="dropdown-menu">
 									<li><Link to="/torneoAlta" className="menu-link">Alta</Link></li>
 									<li><Link to="/torneoEquipos" className="menu-link">Equipos</Link></li>
@@ -65,7 +65,7 @@ export const Menu = () => {
 								</ul>
 							</li>
 							<li className="nav-item dropdown">
-								<Link className="nav-link dropdown-toggle" role="button" data-bs-display="static" aria-expanded="false" to="/jugadores">Config</Link>
+								<Link className="nav-link dropdown-toggle" data-bs-display="static" aria-expanded="false" to="/jugadores">Config</Link>
 								<ul className="dropdown-menu">
 									<li><Link to="/jugadores" className="menu-link" >Jugadores</Link></li>
 									<li><Link to="/equipos" className="menu-link" >Equipos</Link></li>
@@ -77,7 +77,7 @@ export const Menu = () => {
 						</ul>
 						<ul className="navbar-nav ms-auto">
 							<li className="nav-item dropdown">
-								<Link className="link-profile nav-link dropdown-toggle " role="button" to="" data-bs-display="static" aria-expanded="false">
+								<Link className="link-profile nav-link dropdown-toggle" to="" data-bs-display="static" aria-expanded="false">
 									<i className="fa-solid fa-user"></i>
 								</Link>
 								<ul className="dropdown-menu dropdown-menu-end">

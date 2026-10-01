@@ -1,4 +1,4 @@
-export type SedeType = {
+export type SedeView = {
 	Id: number,
 	Nombre: string,
 	Domicilio: string,
@@ -14,7 +14,7 @@ export type SedeType = {
 }
 
 
-export const DefaultSedeType = (): SedeType => ({
+export const DefaultSedeView = (): SedeView => ({
 	Id: -1,
 	Nombre: "",
 	Domicilio: "",

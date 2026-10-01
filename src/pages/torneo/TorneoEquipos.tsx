@@ -274,8 +274,3 @@ export const TorneoEquipos = () => {
 
 
 export default TorneoEquipos;
-/*
-			{
-				idEquipo !== null &&
-			}
-*/

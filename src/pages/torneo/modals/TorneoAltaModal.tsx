@@ -44,12 +44,16 @@ export const TorneoAltaModal = ({
 				'FechaInicio': new Date(new Date().setDate(new Date().getDate() + 10))
 				, 'IdCategoria': listaCategorias[0].Id
 			}));
-			const fetchTorneo = async (id: number) => {
-				var torneo = await getTorneoService(id);
-				torneo.FechaInicio = toDateFormat(torneo.FechaInicio.toString());
-				setForm(torneo);
+			const fetchTorneo = (id: number) => {
+				getTorneoService(id)
+					.then((torneo) => {
+						torneo.FechaInicio = toDateFormat(torneo.FechaInicio.toString());
+						setForm(torneo);
+					})
+					.finally(() => { setContadorLoading(-1) })
 			};
 			if (id) {
+				setContadorLoading(1);
 				fetchTorneo(id);
 			}
 		}

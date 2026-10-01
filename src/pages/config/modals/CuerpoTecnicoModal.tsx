@@ -34,6 +34,7 @@ export const CuerpoTecnicoModal = ({
 
 	const [contadorLoading, setContadorLoading] = useState(0);
 
+
 	const [form, setForm] = useState<ParticipanteType>(DefaultParticipanteType);
 	const equipoCT = useRef<EquipoCTType>(DefaultEquipoCTType)
 	const [cargandoImagenPerfil, setCargandoImagenPerfil] = useState<boolean>(true);
@@ -41,11 +42,17 @@ export const CuerpoTecnicoModal = ({
 	const [imgArchivo, setImgArchivo] = useState<File | null>(null);
 
 
-	const getXDNI = (dni: number) => {
+	const getXDNI = (e: React.FocusEvent<HTMLInputElement>) => {
+		const destino = e.relatedTarget as HTMLElement;
+		if (destino?.id === 'btnCerrar' || destino?.id === 'btnCerrarTop') {
+			close;
+			return;
+		}
+
 		setContadorLoading(1);
-		getParticipanteXDNIService(dni)
+		getParticipanteXDNIService(form.DNI)
 			.then((resp) => {
-				if (resp.data) {
+				if (resp.code === 200) {
 					// si el participante ya existe se cargan los campos
 					setForm((prev) => ({
 						...prev
@@ -63,6 +70,7 @@ export const CuerpoTecnicoModal = ({
 				}
 			})
 			.finally(() => { setContadorLoading(-1) })
+
 	}
 
 
@@ -77,6 +85,7 @@ export const CuerpoTecnicoModal = ({
 
 	useEffect(() => {
 		if (isOpen) {
+			(document.getElementById('DNI') as HTMLInputElement)?.focus();
 			setImgArchivo(null);
 			setSrcImagen(URL_IMAGES + 'svg/j0.svg');
 			const fetchTecnico = async (id: number) => {
@@ -133,7 +142,7 @@ export const CuerpoTecnicoModal = ({
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title">Datos del Director Técnico</h5>
-							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={close}></button>
+							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id='btnCerrarTop' onClick={close}></button>
 						</div>
 						<div className="modal-body">
 							<div className="row">
@@ -147,12 +156,13 @@ export const CuerpoTecnicoModal = ({
 												<div className="col-md-8">
 													<input
 														type="number"
+														autoFocus={true}
 														className="form-control"
 														id="DNI"
 														name="DNI"
 														placeholder="DNI"
 														onChange={(e) => setForm((prev) => ({ ...prev, 'DNI': Number(e.target.value) }))}
-														onBlur={(e) => getXDNI(Number(e.target.value))}
+														onBlur={(e) => { getXDNI(e) }}
 														value={form.DNI} />
 												</div>
 											</div>
@@ -261,6 +271,7 @@ export const CuerpoTecnicoModal = ({
 						<div className="modal-footer">
 							<button
 								type="button"
+								id='btnCerrar'
 								className="btn btn-secondary btn-sm"
 								data-bs-dismiss="modal"
 								aria-label="Close"
