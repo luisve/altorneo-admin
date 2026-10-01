@@ -42,6 +42,7 @@ export const JugadorModal = ({
 
 	useEffect(() => {
 		if (isOpen) {
+			(document.getElementById('DNI') as HTMLInputElement)?.focus();
 			setImagenArchivo(null);
 			setSrcImagen(URL_IMAGES + 'svg/j0.svg');
 			const fechaActual = new Date();
@@ -70,9 +71,14 @@ export const JugadorModal = ({
 	}, [isOpen]);
 
 
-	const getXDNI = (dni: number) => {
+	const getXDNI = (e: React.FocusEvent<HTMLInputElement>) => {
+		const destino = e.relatedTarget as HTMLElement;
+		if (destino?.id === 'btnCerrar' || destino?.id === 'btnCerrarTop') {
+			close;
+			return;
+		}
 		setContadorLoading(1);
-		getParticipanteXDNIService(dni)
+		getParticipanteXDNIService(form.DNI)
 			//getJugadorXDNIService(dni)
 			.then((resp) => {
 				if (resp.code === 200) {
@@ -80,6 +86,15 @@ export const JugadorModal = ({
 						setForm(resp.data);
 						toast.warn('El jugador ya existe en el sistema.');
 					}
+				} else {
+					setForm((prev) => ({
+						...prev
+						, Id: null
+						, Nombre: ''
+						, Apellido: ''
+						, Celular: ''
+						, Email: ''
+					}));
 				}
 			})
 			.finally(() => { setContadorLoading(-1) })
@@ -139,7 +154,13 @@ export const JugadorModal = ({
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title">Datos del Jugador</h5>
-							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={close}></button>
+							<button
+								type="button"
+								id='btnCerrarTop'
+								className="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+								onClick={close}></button>
 						</div>
 						<div className="modal-body">
 							<div className="row">
@@ -159,7 +180,7 @@ export const JugadorModal = ({
 																name="DNI"
 																placeholder="DNI"
 																onChange={(e) => setForm((prev) => ({ ...prev, 'DNI': Number(e.target.value) }))}
-																onBlur={(e) => getXDNI(Number(e.target.value))}
+																onBlur={(e) => getXDNI(e)}
 																value={form.DNI} />
 														</div>
 													</div>
@@ -346,6 +367,7 @@ export const JugadorModal = ({
 								onClick={post}>Confirmar</button>
 							<button
 								type="button"
+								id='btnCerrar'
 								className="btn btn-secondary btn-sm"
 								data-bs-dismiss="modal"
 								aria-label="Cerrar"

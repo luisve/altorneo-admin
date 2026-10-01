@@ -6,15 +6,24 @@
  * @returns La cadena de fecha en formato 'DD/MM/YYYY'.
  */
 export const toDayMonthYear = (dateString: string): string => {
-	const date = new Date(dateString);
-	const day = date.getDate().toString().padStart(2, '0');
-	const month = (date.getMonth() + 1).toString().padStart(2, '0');
-	const year = date.getFullYear();
-	if (!isNaN(date.getTime())) {
-		return `${day}/${month}/${year}`;
+	const [anio, mes, dia] = dateString.split('-');
+	const fechaFormateada = `${dia}/${mes}/${anio}`;
+	if (fechaFormateada) {
+		return fechaFormateada;
 	} else {
-		return `S/D`;
+		return 's/d';
 	}
+	/*
+		const date = new Date(dateString);
+		const day = date.getDate().toString().padStart(2, '0');
+		const month = (date.getMonth() + 1).toString().padStart(2, '0');
+		const year = date.getFullYear();
+		if (!isNaN(date.getTime())) {
+			return `${day}/${month}/${year}`;
+		} else {
+			return `S/D`;
+		}
+			*/
 };
 
 /**
@@ -64,4 +73,15 @@ export const toDateFormat = (stringFecha: string): Date => {
 	const [year, month, day] = stringFecha.split('-').map(Number);
 	const fechaObjeto = new Date(year, month - 1, day);
 	return fechaObjeto;
+}
+
+export const toMySQLDate = (fecha: Date): string => {
+	const fechaMysql =
+		fecha.getFullYear() + '-' +
+		String(fecha.getMonth() + 1).padStart(2, '0') + '-' +
+		String(fecha.getDate()).padStart(2, '0') + ' ' +
+		String(fecha.getHours()).padStart(2, '0') + ':' +
+		String(fecha.getMinutes()).padStart(2, '0') + ':' +
+		String(fecha.getSeconds()).padStart(2, '0');
+	return fechaMysql;
 }

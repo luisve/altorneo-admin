@@ -17,5 +17,5 @@ export const getTorneoService = async (id: number): Promise<TorneoType> => {
 
 
 export const postTorneoAltaService = async (torneo: TorneoType): Promise<ApiResponseArray<[]>> => {
-	 return await apiPOST<ApiResponseArray<[]>, TorneoType>('/Torneo/Set', torneo);
+	 return await apiPOST<ApiResponseArray<[]>, TorneoType>('/torneo/set', torneo);
 };

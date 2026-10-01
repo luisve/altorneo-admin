@@ -44,12 +44,16 @@ export const TorneoAltaModal = ({
 				'FechaInicio': new Date(new Date().setDate(new Date().getDate() + 10))
 				, 'IdCategoria': listaCategorias[0].Id
 			}));
-			const fetchTorneo = async (id: number) => {
-				var torneo = await getTorneoService(id);
-				torneo.FechaInicio = toDateFormat(torneo.FechaInicio.toString());
-				setForm(torneo);
+			const fetchTorneo = (id: number) => {
+				getTorneoService(id)
+					.then((torneo) => {
+						torneo.FechaInicio = toDateFormat(torneo.FechaInicio.toString());
+						setForm(torneo);
+					})
+					.finally(() => { setContadorLoading(-1) })
 			};
 			if (id) {
+				setContadorLoading(1);
 				fetchTorneo(id);
 			}
 		}
@@ -62,15 +66,17 @@ export const TorneoAltaModal = ({
 			return;
 		}
 		setContadorLoading(1);
-		const data = await postTorneoAltaService(form);
-		setContadorLoading(-1);
-		if (data.code === 200) {
-			toast.success(data.msg);
-			fetchTorneos();
-			close();
-		} else {
-			toast.error(data.msg, { autoClose: 3000, });
-		}
+		postTorneoAltaService(form)
+			.then((data) => {
+				if (data.code === 200) {
+					toast.success(data.msg);
+					fetchTorneos();
+					close();
+				} else {
+					toast.error(data.msg, { autoClose: 3000, });
+				}
+			})
+			.finally(() => { setContadorLoading(-1); });
 	};
 
 

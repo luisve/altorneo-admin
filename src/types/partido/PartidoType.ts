@@ -41,3 +41,8 @@ export const DefaultPartidoType: PartidoType = {
 	checkSede: false,
 }
 
+export type PartidoTypePost = {
+	Id?: number,
+	Fecha: string,
+	IdSede?: number
+}

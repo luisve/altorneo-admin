@@ -21,5 +21,5 @@ export const postTorneoEquipoCheckService = async (jsonData: Record<string,any>)
 };
 
 export const postTorneoRecargarEquipoService = async (jsonData: Record<string,any>): Promise<ApiResponseArray<[]>> => {
-	 return await apiPOST<ApiResponseArray<[]>, Record<string,any>>('Torneo/Recargar', jsonData);
+	 return await apiPOST<ApiResponseArray<[]>, Record<string,any>>('torneo/recargar', jsonData);
 };

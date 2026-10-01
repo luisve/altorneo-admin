@@ -382,10 +382,17 @@ export const Tabla = ({
 													const [img, txt] = (tipoCampo[campo]).slice(4).split(":");
 													return (
 														<td key={indexTD} className={css}>
-															<img
-																style={{ left: "5px" }}
-																src={registro[img]}
-																alt={registro[txt]} />
+															{
+																(registro[img] !== '') ?
+																	(
+																		<img
+																			style={{ left: "5px" }}
+																			src={registro[img]}
+																			alt={registro[txt]} />
+																	)
+																	:
+																	<div style={{ width: '30px', height: '40px', float: 'left', top: '10px', position: 'absolute', left: '5px' }}></div>
+															}
 															<span className='com-img-txt'>
 																{registro[txt]}
 															</span>
