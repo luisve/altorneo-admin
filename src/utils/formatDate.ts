@@ -1,4 +1,3 @@
-// src/utils/formatDate.ts
 
 /**
  * Convierte una fecha de formato 'YYYY-MM-DD HH:MM' a 'DD/MM/YYYY'.
@@ -13,17 +12,7 @@ export const toDayMonthYear = (dateString: string): string => {
 	} else {
 		return 's/d';
 	}
-	/*
-		const date = new Date(dateString);
-		const day = date.getDate().toString().padStart(2, '0');
-		const month = (date.getMonth() + 1).toString().padStart(2, '0');
-		const year = date.getFullYear();
-		if (!isNaN(date.getTime())) {
-			return `${day}/${month}/${year}`;
-		} else {
-			return `S/D`;
-		}
-			*/
+
 };
 
 /**
@@ -75,6 +64,8 @@ export const toDateFormat = (stringFecha: string): Date => {
 	return fechaObjeto;
 }
 
+
+// devuelve YYYY-MM-DD HH:MM:SS
 export const toMySQLDate = (fecha: Date): string => {
 	const fechaMysql =
 		fecha.getFullYear() + '-' +
@@ -85,3 +76,22 @@ export const toMySQLDate = (fecha: Date): string => {
 		String(fecha.getSeconds()).padStart(2, '0');
 	return fechaMysql;
 }
+
+
+// devuelve string para un input type='date'
+export const getHoy = (): string => {
+	const hoy = new Date();
+	return new Date(
+		hoy.getTime() - hoy.getTimezoneOffset() * 60000
+	)
+		.toISOString()
+		.split("T")[0];
+}
+
+
+// Convierte YYYY-MM-DD a DD_MM_YYYY
+export const toNombreArchivo = (dateString: string): string => {
+	const [datePart] = dateString.split(' ');
+	const parts = datePart.split('-');
+	return `${parts[2]}_${parts[1]}_${parts[0]}`;
+};

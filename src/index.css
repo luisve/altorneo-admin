@@ -242,8 +242,10 @@ fieldset:disabled .btn {
 	height: auto;
 	border: 1px solid;
 	font-size: 1rem;
-	border-radius: 2px;
+	border-radius: 5px;
+	padding: 4px 15px;
 }
+
 
 .btn-primary {
 	background: var(--bs-primary-dark);

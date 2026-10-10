@@ -50,7 +50,8 @@ export const Menu = () => {
 								<ul className="dropdown-menu">
 									<li><Link to="/fechaSanciones" className="menu-link" >Sanciones</Link></li>
 									<li><Link to="/fechaEventos" className="menu-link" >Eventos</Link></li>
-									<li><Link to="/fechaImprimir" className="menu-link" >Imprimir</Link></li>
+									<li><Link to="/fechaListaBuenaFe" className="menu-link">Lista Buena Fe</Link></li>
+									<li><Link to="/fechaListado" className="menu-link">Listado</Link></li>
 									<li><Link to="/fechaConfirmar" className="menu-link" >Confirmar</Link></li>
 								</ul>
 							</li>

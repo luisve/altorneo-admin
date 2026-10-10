@@ -95,6 +95,12 @@ export const JugadorModal = ({
 						, Celular: ''
 						, Email: ''
 					}));
+					equipoJugador.current = {
+						...equipoJugador.current,
+						Imagen : ''
+						, IdImagen: 0
+					};
+
 				}
 			})
 			.finally(() => { setContadorLoading(-1) })

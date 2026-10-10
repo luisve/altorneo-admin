@@ -8,9 +8,10 @@ import { ToastContainer } from 'react-toastify';
 
 import { lazy } from 'react';
 import CuerpoTecnico from './pages/config/CuerpoTecnico';
+import Listado from './pages/fecha/Listado';
 
 const FechaConfirmar = lazy(() => import('./pages/fecha/FechaConfirmar'));
-const FechaImprimir = lazy(() => import('./pages/fecha/FechaImprimir'));
+const FechaListaBuenaFe = lazy(() => import('./pages/fecha/FechaListaBuenaFe'));
 const FechaEventos = lazy(() => import('./pages/fecha/FechaEventos'));
 const FechaSanciones = lazy(() => import('./pages/fecha/FechaSanciones'));
 
@@ -62,7 +63,8 @@ function App() {
 				<Routes>
 					<Route path='/FechaSanciones' element={<FechaSanciones />} />
 					<Route path='/FechaEventos' element={<FechaEventos />} />
-					<Route path='/fechaImprimir' element={<FechaImprimir />} />
+					<Route path='/fechaListado' element={<Listado />} />
+					<Route path='/fechaListaBuenaFe' element={<FechaListaBuenaFe />} />
 					<Route path='/fechaConfirmar' element={<FechaConfirmar />} />
 
 					<Route path='/torneoIniciar' element={<TorneoIniciar />} />
