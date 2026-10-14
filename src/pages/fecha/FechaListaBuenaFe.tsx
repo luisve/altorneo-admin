@@ -22,7 +22,7 @@ import { FechaType } from '../../types/fecha/FechaType';
 import { EquipoView } from '../../views/config/EquipoView';
 
 
-export const FechaImprimir = () => {
+export const FechaListaBuenaFe = () => {
 
 
 	const [listaTorneos, setListaTorneos] = useState<SelectType[] | null>(null);
@@ -257,4 +257,4 @@ export const FechaImprimir = () => {
 }
 
 
-export default FechaImprimir;
+export default FechaListaBuenaFe;
