@@ -38,7 +38,6 @@ const Listado = () => {
 	const getListado = () => {
 		getListadoService(form.Dia)
 			.then((listado) => {
-				// listado.sort((a, b) => new Date(b.Hora).getTime() - new Date(a.Hora).getTime());
 				listado.sort((a, b) => a.Hora.localeCompare(b.Hora));
 				setSedesOpciones([...new Set(listado.map(x => x.Sede))]);
 				sedesSeleccionadas.current = [...new Set(listado.map(x => x.Sede))];
@@ -111,11 +110,11 @@ const Listado = () => {
 								</div>
 							</div>
 							<div className="col-md-6">
-								<div className="row justify-content-end">
+								<div className="row">
 									<button
 										onClick={getListado}
 										type="button"
-										className="btn btn-primary m-1">Confirmar
+										className="btn btn-primary m-1">Buscar
 									</button>
 								</div>
 								<div className="row justify-content-end">
