@@ -1,14 +1,47 @@
 /*@import 'bootstrap/dist/css/bootstrap.min.css';*/
 
-
+/*
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700");
+*/
 /*
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,500");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
-*/
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+*/
 
+@font-face {
+	font-display: swap;
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	src: url("assets/fonts/fa-solid-900.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 400;
+	src: url("assets/fonts/fa-regular-400.woff2") format("woff2");
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Oxygen';
+	font-style: normal;
+	font-weight: 400;
+	src: url('assets/fonts/oxygen-v16-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Oxygen';
+	font-style: normal;
+	font-weight: 700;
+	src: url('assets/fonts/oxygen-v16-latin-700.woff2') format('woff2');
+}
 
 :root {
 	/* Colores */
@@ -55,9 +88,10 @@
 
 @media (max-width: 992px) {
 	.navbar-nav>li {
-    margin: 0 !important;
-    padding: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
 	}
+
 	.navbar-collapse {
 		background-color: #fff;
 		border: 1px solid var(--bs-gray-400);
@@ -65,6 +99,10 @@
 	}
 }
 
+.icon {
+	width: 1.5em;
+	height: 1.5em;
+}
 
 .cursor-pointer {
 	cursor: pointer;
@@ -409,7 +447,7 @@ h6,
 }
 
 body {
-	font-family: "Open Sans", sans-serif;
+	font-family: Oxygen, "Open Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-size: 0.875rem;
 	line-height: 1.7;

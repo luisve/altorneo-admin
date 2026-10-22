@@ -9,6 +9,7 @@ import { DefaultTorneoEquipoPagoType, TorneoEquipoPagoType } from "../../../type
 import { getTorneoEquipoPagosService, postTorneoEquipoPagoService } from "../../../services/torneo/TorneoEquipoPagoService";
 import { TorneoEquipoPagoView } from "../../../views/torneo/TorneoEquipoPagoView";
 import { API } from "../../../utils/constants";
+import { FechaPagoReciboPDF } from "../../../components/FechaPagoReciboPDF";
 
 
 type ModalProps = {
@@ -32,9 +33,15 @@ export const TorneoEquipoPagoModal = ({
 
 	const [form, setForm] = useState<TorneoEquipoPagoType>(DefaultTorneoEquipoPagoType);
 	const [listaPagos, setListaPagos] = useState<TorneoEquipoPagoView[] | null>(null);
+	const [imprimiendoId, setImprimiendoId] = useState<number | null>(null);
 
 
 	const formatoMoneda = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", minimumFractionDigits: 2, });
+
+	const imprimirRecibo = (idRecibo: number) => {
+		setImprimiendoId(idRecibo);
+		setTimeout(() => setImprimiendoId(null), 500);
+	}
 
 	useEffect(() => {
 		if (!idEquipo) {
@@ -203,10 +210,25 @@ export const TorneoEquipoPagoModal = ({
 																<span>{pago.Obs}</span>
 															</div>
 															<div className="col-1 col-md-1 border">
-																<a href={pago.LinkPDF}
-																	target="_blank" rel="noopener noreferrer">
-																	<i className="fa fa-file-pdf"></i>
-																</a>
+																<button
+																	title="Exportar a PDF"
+																	className="btn btn-primary m-1"
+																	onClick={() => { imprimirRecibo(pago.Id); }}
+																	disabled={imprimiendoId !== null}
+																	style={{ cursor: imprimiendoId ? "not-allowed" : "pointer" }}>
+																	<svg
+																		className="icon icon-file-pdf"
+																		fill="currentColor">
+																		<use href="/admin/assets/fonts/fa/sprites/solid.svg#file-pdf"></use>
+																	</svg>
+																</button>
+																{
+																	imprimiendoId === pago.Id &&
+																	<FechaPagoReciboPDF
+																		idRecibo={pago.Id}
+																		nombreArchivo={'Recibo_' + pago.Id}
+																	/>
+																}
 															</div>
 														</div>
 													))

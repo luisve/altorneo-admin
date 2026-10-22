@@ -31,7 +31,6 @@ export const TorneoFechasManualModal = ({
 	, modalRef }: ModalProps) => {
 
 
-	//const [listaEquiposView, setListaEquiposView] = useState<EquipoView[] | null>(listaEquipos.sort((a, b) => a.Nombre.localeCompare(b.Nombre)));
 	const [listaEquiposView, setListaEquiposView] = useState<EquipoView[]>([]);
 	const [proximoEquipo, setProximoEquipo] = useState<string>("local");
 	const [partido, setPartido] = useState<FechaType>(DefaultFechaType);
@@ -90,7 +89,7 @@ export const TorneoFechasManualModal = ({
 	}
 
 
-	const handleDelPartido = (e: HTMLInputElement) => {
+	const handleDelPartido = (e: HTMLElement | SVGElement) => {
 		let fixtureTemp = fixture.filter((_, index) => index !== Number(e.dataset.id));
 		let partidoNumeroTemp = 0;
 		fixtureTemp = fixtureTemp.map(partidoItem => {
@@ -345,15 +344,18 @@ export const TorneoFechasManualModal = ({
 																{
 																	partido.FechaNumero !== null &&
 																		partidoFixture.FechaNumero === partido.FechaNumero + 1 ?
-																		<i
-																			onClick={(e) => handleDelPartido(e.currentTarget as HTMLInputElement)}
-																			role='button'
-																			className="fa fa-trash"
-																			data-id={index}></i>
-																		:
-																		<span className="material-icons-outlined link-edit"																		>
-																			&nbsp;
-																		</span>
+																		<svg
+																			onClick={(e) => handleDelPartido(e.currentTarget )}
+																			role="button"
+																			className="icon icon-trash"
+																			fill="currentColor"
+																			style={{ color: '#ff0000' }}>
+																			<use href="/admin/assets/fonts/fa/sprites/solid.svg#trash"></use>
+																		</svg>
+																:
+																<span className="material-icons-outlined link-edit"																		>
+																	&nbsp;
+																</span>
 																}
 															</div>
 														</div>

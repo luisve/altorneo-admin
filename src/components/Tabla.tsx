@@ -108,8 +108,8 @@ export const Tabla = ({
 	};
 
 
-	const handleClicCash = (el: HTMLInputElement) => {
-		onClicCash(Number(el.dataset.id));
+	const handleClicCash = (el: HTMLElement | SVGElement) => {
+		onClicCash(el.getAttribute('data-id'));
 	};
 
 
@@ -176,7 +176,6 @@ export const Tabla = ({
 					if (idx2 > idx) {
 						if (orden.datos.tipo === "string") {
 							if ((dato[campoOrden]).localeCompare(dato2[campoOrden]) === orden.datos.orden) {
-								//if ((dato[campoOrden]).localeCompare(dato2[campoOrden]) < 0) {
 								let temp = dato2;
 								datosTemp[idx2] = dato;
 								datosTemp[idx] = temp;
@@ -318,7 +317,11 @@ export const Tabla = ({
 														<td key={indexTD} className={css}>
 															<a href={registro[campo]}
 																target="_blank" rel="noopener noreferrer">
-																<i className="fa fa-file-pdf"></i>
+																<svg
+																	className="icon icon-file-pdf"
+																	fill="currentColor">
+																	<use href="/admin/assets/fonts/fa/sprites/solid.svg#file-pdf"></use>
+																</svg>
 															</a>
 														</td>
 													)
@@ -411,36 +414,28 @@ export const Tabla = ({
 													botones.map((b: string, indexBotones: number) => {
 														if (b === "Edit") {
 															return (
-																<i
+																<svg
 																	key={indexBotones}
-																	onClick={(e) => handleClicEdit(e.currentTarget as HTMLInputElement)}
-																	role='button'
-																	className="fa fa-edit"
-																	data-id={registro[keyField]}></i>
+																	onClick={(e) => handleClicEdit(e.currentTarget as unknown as HTMLInputElement)}
+																	role="button"
+																	className="icon icon-edit"
+																	data-id={registro[keyField]}
+																	fill="currentColor">
+																	<use href="/admin/assets/fonts/fa/sprites/solid.svg#pen-to-square"></use>
+																</svg>
 															);
 														} else if (b === "Cash") {
-															{
-																/*
-															<i class="fa-solid fa-money-bill"></i>
 															return (
-																<span
+																<svg
 																	key={indexBotones}
-																	onClick={(e) => handleClicCash(e.currentTarget as HTMLInputElement)}
-																	role='button'
-																	className="material-icons-outlined link-edit"
-																	data-id={registro[keyField]}>
-																	local_atm
-																</span>
-															);
-															*/
-															}
-															return (
-																<i
-																	key={indexBotones}
-																	onClick={(e) => handleClicCash(e.currentTarget as HTMLInputElement)}
-																	role='button'
-																	className="fa fa-money-bill"
-																	data-id={registro[keyField]}></i>
+																	onClick={(e) => handleClicCash(e.currentTarget)}
+																	role="button"
+																	className="icon icon-money-bill"
+																	data-id={registro[keyField]}
+																	fill="currentColor"
+																	style={{ color: '#058b2d' }} >
+																	<use href="/admin/assets/fonts/fa/sprites/solid.svg#money-bill"></use>
+																</svg>
 															);
 														} else {
 															return null;
@@ -457,7 +452,7 @@ export const Tabla = ({
 						})
 					}
 				</tbody>
-			</table>
+			</table >
 			{
 				verPaginador &&
 				<div className="clearfix text-end d-flex flex-column align-items-end">
@@ -495,37 +490,6 @@ export const Tabla = ({
 						</ul>
 					</nav>
 				</div>
-			}
-
-			{
-				/*
-				verPaginador &&
-				<div className="clearfix text-end">
-					{registrosListados.current} Registros de: {datosPrint.length}
-					<span style={{ width: '80px', marginRight: '20px', display: 'inline-flex' }}>Pag: {pagina}</span>
-					<ul className="pagination pagination-sm m-0 float-end">
-						<li
-							role='button'
-							className="page-item page-link"
-							onClick={() => paginatorChangeInicio(-1)}>
-							&laquo;
-						</li>
-						<li className="page-item" >
-							<select className="page-link mx-1" onChange={paginatorSelectChange}>
-								<option value="10">10</option>
-								<option value="100" >100</option>
-								<option value="1000" >1000</option>
-							</select>
-						</li>
-						<li
-							role='button'
-							className="page-item page-link"
-							onClick={() => paginatorChangeInicio(1)}>
-							&raquo;
-						</li>
-					</ul>
-				</div>
-				*/
 			}
 		</>
 	)

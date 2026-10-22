@@ -26,35 +26,35 @@ const ExportExcel = <T extends object>({
 	filasEnBlanco = 1,
 }: ExportExcelProps<T>): React.ReactElement => {
 	const handleExport = (): void => {
-    // 1. Hoja vacía (la construimos por bloques)
-    const worksheet: XLSX.WorkSheet = {};
+		// 1. Hoja vacía (la construimos por bloques)
+		const worksheet: XLSX.WorkSheet = {};
 
-    // 2. Bloque de títulos: uno por fila en la columna A
-    //    Ej: [["Título 1"], ["Título 2"], ["Título 3"]]
-    const bloqueTitulos = titulos.map((t) => [t.texto]);
-    XLSX.utils.sheet_add_aoa(worksheet, bloqueTitulos, { origin: "A1" });
+		// 2. Bloque de títulos: uno por fila en la columna A
+		//    Ej: [["Título 1"], ["Título 2"], ["Título 3"]]
+		const bloqueTitulos = titulos.map((t) => [t.texto]);
+		XLSX.utils.sheet_add_aoa(worksheet, bloqueTitulos, { origin: "A1" });
 
-    // 3. Fila de encabezados, después de N filas en blanco
-    const filaHeaders = titulos.length + filasEnBlanco + 1; // +1 porque Excel es 1-based
-    XLSX.utils.sheet_add_aoa(worksheet, [headers], {
-      origin: `A${filaHeaders}`,
-    });
+		// 3. Fila de encabezados, después de N filas en blanco
+		const filaHeaders = titulos.length + filasEnBlanco + 1; // +1 porque Excel es 1-based
+		XLSX.utils.sheet_add_aoa(worksheet, [headers], {
+			origin: `A${filaHeaders}`,
+		});
 
-    // 4. Datos, justo debajo de los encabezados
-    const filaDatos = filaHeaders + 1;
-    XLSX.utils.sheet_add_json(worksheet, data, {
-      origin: `A${filaDatos}`,
-      skipHeader: true, // ya pusimos los headers a mano
-    });
+		// 4. Datos, justo debajo de los encabezados
+		const filaDatos = filaHeaders + 1;
+		XLSX.utils.sheet_add_json(worksheet, data, {
+			origin: `A${filaDatos}`,
+			skipHeader: true, // ya pusimos los headers a mano
+		});
 
-    // 5. Ancho de columnas (opcional, para que se lean bien)
-    worksheet["!cols"] = headers.map(() => ({ wch: 18 }));
+		// 5. Ancho de columnas (opcional, para que se lean bien)
+		worksheet["!cols"] = headers.map(() => ({ wch: 18 }));
 
-    // 6. Crear libro y exportar
-    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+		// 6. Crear libro y exportar
+		const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
-    XLSX.writeFile(workbook, `${fileName}.xls`, { bookType: "xls" });
+		XLSX.writeFile(workbook, `${fileName}.xls`, { bookType: "xls" });
 	};
 
 	return (
@@ -62,7 +62,16 @@ const ExportExcel = <T extends object>({
 			title='Exportar a xls'
 			className='btn btn-primary m-1'
 			onClick={handleExport}>
-			<i className='fa-solid fa-file-excel'></i>
+			<svg
+				className="icon icon-file-excel"
+				fill="currentColor">
+				<use href="/admin/assets/fonts/fa/sprites/solid.svg#file-excel"></use>
+			</svg>
+			{
+				/*
+						<i className='fa-solid fa-file-excel'></i>
+						*/
+			}
 		</button>
 	);
 };
