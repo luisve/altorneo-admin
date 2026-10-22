@@ -32,7 +32,7 @@
 	font-family: 'Oxygen';
 	font-style: normal;
 	font-weight: 400;
-	src: url('assets/fonts/oxygen-v16-latin-regular.woff2') format('woff2');
+	src: url('/assets/fonts/oxygen-v16-latin-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -40,7 +40,7 @@
 	font-family: 'Oxygen';
 	font-style: normal;
 	font-weight: 700;
-	src: url('assets/fonts/oxygen-v16-latin-700.woff2') format('woff2');
+	src: url('/assets/fonts/oxygen-v16-latin-700.woff2') format('woff2');
 }
 
 :root {

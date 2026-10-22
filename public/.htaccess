@@ -1,0 +1,38 @@
+Options -Indexes
+ServerSignature Off
+
+Header always set X-Content-Type-Options "nosniff"
+#Header set Content-Security-Policy "default-src 'self';"
+Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline';"
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Permitir acceso directo a /admin y /uploads
+  RewriteCond %{REQUEST_URI} ^/admin [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/uploads [NC]
+  RewriteRule ^ - [L]
+
+  # Si es raíz, redirigir a /site/ (cambia la URL en el navegador)
+  RewriteRule ^$ site/ [R=302,L]
+
+  # Si el archivo o directorio existe, se sirve normalmente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Todo lo demás inexistente, mandar a /site/index.html
+  RewriteRule ^(.*)$ site/ [R=302,L]
+</IfModule>
+
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
