@@ -5,6 +5,12 @@ import { TorneoEquipoPagoView } from '../../views/torneo/TorneoEquipoPagoView';
 import { SelectType } from '../../types/SelectType';
 
 
+// Obtener lista de torneos Pagos
+export const getReciboDatosService = async (idRecibo: number): Promise<TorneoEquipoPagoView> => {
+	return await apiGET<TorneoEquipoPagoView>('TorneoEquiposPagos/getReciboDatos?idRecibo=' + idRecibo);
+};
+
+
 // POST nuevo pago
 export const postTorneoEquipoPagoService = async (jsonData: TorneoEquipoPagoType): Promise<ApiResponseArray<[]>> => {
 	return await apiPOST<ApiResponseArray<[]>, TorneoEquipoPagoType>('TorneoEquiposPagos/SetPago', jsonData);

@@ -68,7 +68,6 @@ export const JugadorXLSModal = ({
 			return item === newValue ? "" : item; // vaciamos donde estaba repetido
 		});
 		titulosTemp[columnIndex] = newValue;
-		//console.log(titulosTemp);
 		setTitulos(titulosTemp);
 	};
 
@@ -96,7 +95,6 @@ export const JugadorXLSModal = ({
 			return newItem;
 		});
 		setContadorLoading(1);
-		//const resp: ResponseType = await postJugadorXLSService(dataPost);
 		const datosJson: jsonJugadoresType = {
 			data: dataPost,
 			idEquipo: idEquipo
@@ -134,12 +132,14 @@ export const JugadorXLSModal = ({
 												{
 													Object.keys(data[0] || {}).map((clave, index) => (
 														<th key={index} className="text-nowrap text-center">
-															<i
-																role="button"
-																className="fa fa-trash"
+															<svg
 																onClick={() => handleEliminarColumna(clave, index)}
-																style={{ color: 'red' }}
-															></i>
+																role="button"
+																className="icon icon-trash"
+																fill="currentColor"
+																style={{ color: '#ff0000' }}>
+																<use href="/admin/assets/fonts/fa/sprites/solid.svg#trash"></use>
+															</svg>
 														</th>
 													))
 												}
@@ -178,12 +178,14 @@ export const JugadorXLSModal = ({
 														<tr
 															key={index}>
 															<td>
-																<i
-																	role="button"
-																	className="fa fa-trash"
+																<svg
 																	onClick={() => handleEliminarFila(index)}
-																	style={{ color: 'red' }}
-																></i>
+																	role="button"
+																	className="icon icon-trash"
+																	fill="currentColor"
+																	style={{ color: '#ff0000' }}>
+																	<use href="/admin/assets/fonts/fa/sprites/solid.svg#trash"></use>
+																</svg>
 															</td>
 															{
 																claves.map((clave, idx) => (
@@ -218,175 +220,3 @@ export const JugadorXLSModal = ({
 		</>
 	)
 }
-
-
-/**
-const resultadoFinal = getConvertedData();
-console.log(resultadoFinal);
-
-[
-  { nombre: "Juan", telefono: "123456", email: "juan@mail.com" },
-  { nombre: "Ana", telefono: "789012", email: "ana@mail.com" }
-]
-
-<table>
-  <thead>
-	<tr>
-	  <th></th>
-	  {Object.keys(columnas).map((colKey) => (
-		<th key={colKey} onClick={() => handleDeleteColumn(colKey)}>
-		  {columnas[colKey]}
-		</th>
-	  ))}
-	</tr>
-  </thead>
-  <tbody>
-	{data.map((row, rowIndex) => (
-	  <tr key={rowIndex}>
-		<td onClick={() => handleDeleteRow(rowIndex)}>🗑️</td>
-		{Object.keys(columnas).map((colKey) => (
-		  <td key={colKey}>{row[colKey]}</td>
-		))}
-	  </tr>
-	))}
-  </tbody>
-</table>
- 
- */
-
-
-
-
-
-
-
-
-
-/**
- * 
- * 
- * 											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="A"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select1" data-i={0}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="B"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select2" data-i={1}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="C"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select3" data-i={2}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="D"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select4" data-i={3}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="E"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select5" data-i={4}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="F"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select6" data-i={5}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="G"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select7" data-i={6}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="H"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select8" data-i={7}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="I"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select9" data-i={8}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="J"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select10" data-i={9}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-											<th className='text-center'>
-												<span
-													className="material-icons-outlined linkDeleteFila"
-													data-col="K"
-													onClick={(e) =>handleClicDeleteColumna(e.target)}
-													tooltip="Eliminar Columna"
-													title="Eliminar Columna">delete</span>
-												<select className='form-select' name="select11" data-i={10}>{selectJugador.current.map((op, i) => { return (<option key={i}>{op}</option>) })}</select></th>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-														<td className="text-nowrap">{reg.A}</td>
-														<td className="text-nowrap">{reg.B}</td>
-														<td className="text-nowrap">{reg.C}</td>
-														<td className="text-nowrap">{reg.D}</td>
-														<td className="text-nowrap">{reg.E}</td>
-														<td className="text-nowrap">{reg.F}</td>
-														<td className="text-nowrap">{reg.G}</td>
-														<td className="text-nowrap">{reg.H}</td>
-														<td className="text-nowrap">{reg.I}</td>
-														<td className="text-nowrap">{reg.J}</td>
-														<td className="text-nowrap">{reg.K}</td>
-
-												* 
- * 
- */

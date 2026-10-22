@@ -136,7 +136,11 @@ const Listado = () => {
 												}}
 												disabled={imprimiendo}
 												style={{ cursor: imprimiendo ? "not-allowed" : "pointer" }}>
-												<i className="fa fa-file-pdf"></i>
+												<svg
+													className="icon icon-file-pdf"
+													fill="currentColor">
+													<use href="/admin/assets/fonts/fa/sprites/solid.svg#file-pdf"></use>
+												</svg>
 											</button>
 											{
 												imprimiendo &&
