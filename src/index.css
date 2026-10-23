@@ -80,7 +80,8 @@
 .dropdown-item:focus-visible .menu-link:focus,
 .menu-link:focus-visible {
 	background-color: var(--bs-primary);
-	color: #ffffff;
+	color: var(--bs-white) !important;
+	font-weight: bold;
 	outline: none;
 	box-shadow: none;
 }
